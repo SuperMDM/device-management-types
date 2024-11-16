@@ -1,5 +1,5 @@
 export type RotateFileVaultKey = {
-  RotateResult: {
-    EncryptedNewRecoveryKey: string | undefined;
-  } | undefined;
+    RotateResult: {
+        EncryptedNewRecoveryKey: string | undefined;
+    } | undefined;
 };

@@ -1,3 +1,3 @@
 export type RequestMirroring = {
-  MirroringResult: string | undefined;
+    MirroringResult: string | undefined;
 };

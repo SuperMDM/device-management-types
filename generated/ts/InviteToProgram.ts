@@ -1,3 +1,3 @@
 export type InviteToProgram = {
-  InvitationResult: string;
+    InvitationResult: string;
 };

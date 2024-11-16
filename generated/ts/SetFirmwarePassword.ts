@@ -1,5 +1,5 @@
 export type SetFirmwarePassword = {
-  SetFirmwarePassword: {
-    PasswordChanged: boolean;
-  };
+    SetFirmwarePassword: {
+        PasswordChanged: boolean;
+    };
 };

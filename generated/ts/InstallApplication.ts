@@ -1,5 +1,5 @@
 export type InstallApplication = {
-  Identifier: string | undefined;
-  State: string | undefined;
-  RejectionReason: string | undefined;
+    Identifier: string | undefined;
+    State: string | undefined;
+    RejectionReason: string | undefined;
 };

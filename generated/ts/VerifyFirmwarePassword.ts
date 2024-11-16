@@ -1,5 +1,5 @@
 export type VerifyFirmwarePassword = {
-  VerifyFirmwarePassword: {
-    PasswordVerified: boolean;
-  };
+    VerifyFirmwarePassword: {
+        PasswordVerified: boolean;
+    };
 };

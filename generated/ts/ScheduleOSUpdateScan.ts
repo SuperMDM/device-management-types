@@ -1,3 +1,3 @@
 export type ScheduleOSUpdateScan = {
-  ScanInitiated: boolean;
+    ScanInitiated: boolean;
 };

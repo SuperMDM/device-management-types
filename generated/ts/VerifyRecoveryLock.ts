@@ -1,3 +1,3 @@
 export type VerifyRecoveryLock = {
-  PasswordVerified: boolean;
+    PasswordVerified: boolean;
 };

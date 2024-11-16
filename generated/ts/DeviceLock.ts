@@ -1,3 +1,3 @@
 export type DeviceLock = {
-  MessageResult: string | undefined;
+    MessageResult: string | undefined;
 };

@@ -1,3 +1,3 @@
 export type ActivationLockBypassCode = {
-  ActivationLockBypassCode: string;
+    ActivationLockBypassCode: string;
 };

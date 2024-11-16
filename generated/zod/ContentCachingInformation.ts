@@ -1,11 +1,11 @@
-import { z } from "https://deno.land/x/zod/mod.ts";
+import { z } from 'https://deno.land/x/zod/mod.ts';
 export const ContentCachingInformation = z.object({
   StatusResponse: z.object({
     Activated: z.boolean().optional(),
     Active: z.boolean().optional(),
     ActualCacheUsed: z.number().optional(),
     AlertsForPeerFilterRanges: z.object({
-      "ANY index": z.object({
+      'ANY index': z.object({
         className: z.string(),
         postDate: z.date(),
         peerFilterRangeIndex: z.number(),
@@ -23,7 +23,7 @@ export const ContentCachingInformation = z.object({
       }),
     ).optional(),
     CacheDetails: z.object({
-      "Category Name": z.number(),
+      'Category Name': z.number(),
     }).optional(),
     CacheFree: z.number().optional(),
     CacheLimit: z.number().optional(),
@@ -48,18 +48,18 @@ export const ContentCachingInformation = z.object({
           addresses: z.array(z.string()),
         }).optional(),
         details: z.object({
-          "ac-power": z.boolean().optional(),
-          "cache-size": z.number().optional(),
+          'ac-power': z.boolean().optional(),
+          'cache-size': z.number().optional(),
           capabilities: z.object({
             im: z.boolean().optional(),
             ns: z.boolean().optional(),
             pc: z.boolean().optional(),
-            "query-parameters": z.boolean().optional(),
+            'query-parameters': z.boolean().optional(),
             sc: z.boolean().optional(),
             ur: z.boolean().optional(),
           }).optional(),
-          "is-portable": z.boolean().optional(),
-          "local-network": z.object({
+          'is-portable': z.boolean().optional(),
+          'local-network': z.object({
             speed: z.number().optional(),
             wired: z.boolean().optional(),
           }).optional(),
@@ -80,18 +80,18 @@ export const ContentCachingInformation = z.object({
           peerAddress: z.string().optional(),
         }).optional(),
         details: z.object({
-          "ac-power": z.boolean().optional(),
-          "cache-size": z.number().optional(),
+          'ac-power': z.boolean().optional(),
+          'cache-size': z.number().optional(),
           capabilities: z.object({
             im: z.boolean().optional(),
             ns: z.boolean().optional(),
             pc: z.boolean().optional(),
-            "query-parameters": z.boolean().optional(),
+            'query-parameters': z.boolean().optional(),
             sc: z.boolean().optional(),
             ur: z.boolean().optional(),
           }).optional(),
-          "is-portable": z.boolean().optional(),
-          "local-network": z.object({
+          'is-portable': z.boolean().optional(),
+          'local-network': z.object({
             speed: z.number().optional(),
             wired: z.boolean().optional(),
           }).optional(),

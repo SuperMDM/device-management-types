@@ -1,4 +1,4 @@
-import { z } from "https://deno.land/x/zod/mod.ts";
+import { z } from 'https://deno.land/x/zod/mod.ts';
 export const InstallMedia = z.object({
   iTunesStoreID: z.number().optional(),
   MediaURL: z.string().optional(),

@@ -1,6 +1,6 @@
 export type ManagedApplicationList = {
   ManagedApplicationList: {
-    "ANY app identifier": {
+    'ANY app identifier': {
       Status: string;
       ManagementFlags: number;
       UnusedRedemptionCode: string | undefined;

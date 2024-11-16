@@ -4,7 +4,7 @@ export type ContentCachingInformation = {
     Active: boolean | undefined;
     ActualCacheUsed: number | undefined;
     AlertsForPeerFilterRanges: {
-      "ANY index": {
+      'ANY index': {
         className: string;
         postDate: Date;
         peerFilterRangeIndex: number;
@@ -24,7 +24,7 @@ export type ContentCachingInformation = {
       >
       | undefined;
     CacheDetails: {
-      "Category Name": number;
+      'Category Name': number;
     } | undefined;
     CacheFree: number | undefined;
     CacheLimit: number | undefined;
@@ -50,18 +50,18 @@ export type ContentCachingInformation = {
             addresses: Array<string>;
           } | undefined;
           details: {
-            "ac-power": boolean | undefined;
-            "cache-size": number | undefined;
+            'ac-power': boolean | undefined;
+            'cache-size': number | undefined;
             capabilities: {
               im: boolean | undefined;
               ns: boolean | undefined;
               pc: boolean | undefined;
-              "query-parameters": boolean | undefined;
+              'query-parameters': boolean | undefined;
               sc: boolean | undefined;
               ur: boolean | undefined;
             } | undefined;
-            "is-portable": boolean | undefined;
-            "local-network": {
+            'is-portable': boolean | undefined;
+            'local-network': {
               speed: number | undefined;
               wired: boolean | undefined;
             } | undefined;
@@ -84,18 +84,18 @@ export type ContentCachingInformation = {
             peerAddress: string | undefined;
           } | undefined;
           details: {
-            "ac-power": boolean | undefined;
-            "cache-size": number | undefined;
+            'ac-power': boolean | undefined;
+            'cache-size': number | undefined;
             capabilities: {
               im: boolean | undefined;
               ns: boolean | undefined;
               pc: boolean | undefined;
-              "query-parameters": boolean | undefined;
+              'query-parameters': boolean | undefined;
               sc: boolean | undefined;
               ur: boolean | undefined;
             } | undefined;
-            "is-portable": boolean | undefined;
-            "local-network": {
+            'is-portable': boolean | undefined;
+            'local-network': {
               speed: number | undefined;
               wired: boolean | undefined;
             } | undefined;

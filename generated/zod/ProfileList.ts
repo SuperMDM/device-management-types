@@ -1,4 +1,4 @@
-import { z } from "https://deno.land/x/zod/mod.ts";
+import { z } from 'https://deno.land/x/zod/mod.ts';
 export const ProfileList = z.object({
   ProfileList: z.array(
     z.object({

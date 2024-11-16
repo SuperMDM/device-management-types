@@ -103,4 +103,4 @@ for (const [_, file] of yamlFiles) {
 
 const mod = names.map(name => `export type * from "./${name}.ts";`).join("\n");
 Deno.writeTextFileSync("generated/ts/mod.ts", await fmt.format(mod));
-Deno.writeTextFileSync("generated/zod/mod.ts", await fmt.format(mod));
+Deno.writeTextFileSync("generated/zod/mod.ts", await fmt.format(mod.replaceAll("export type", "export")));

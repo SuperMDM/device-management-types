@@ -1,4 +1,4 @@
-import { z } from "https://deno.land/x/zod/mod.ts";
+import { z } from 'https://deno.land/x/zod/mod.ts';
 export const Settings = z.object({
   Settings: z.object({
     Status: z.string(),

@@ -1,4 +1,4 @@
-import { z } from "https://deno.land/x/zod/mod.ts";
+import { z } from 'https://deno.land/x/zod/mod.ts';
 export const DeviceLocation = z.object({
   Latitude: z.number(),
   Longitude: z.number(),

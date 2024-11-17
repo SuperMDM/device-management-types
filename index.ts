@@ -1,7 +1,7 @@
 import { JSZip } from 'https://deno.land/x/jszip/mod.ts';
 import { parse } from 'jsr:@std/yaml';
 import { assert } from 'https://deno.land/std@0.116.0/_util/assert.ts';
-import * as fmt from 'https://deno.land/x/deno_fmt@0.1.5/mod.ts';
+import { Formatter } from 'https://deno.land/x/deno_fmt@0.1.5/mod.ts';
 
 // Download yaml types from https://github.com/apple/device-management/tree/release/mdm
 
@@ -14,7 +14,7 @@ const zip = new JSZip();
 await zip.loadAsync(zipBuffer);
 // get the yaml files
 const yamlFiles = Object.entries(zip.files()).filter(([path]) =>
-    path.startsWith('device-management-release/mdm/commands') &&
+    path.startsWith('device-management-release/mdm/c') &&
     path.endsWith('.yaml')
 );
 
@@ -99,26 +99,34 @@ try {
     // ignore
 }
 
+const fmt = await Formatter.init({
+    options: {
+        indentWidth: 4,
+        singleQuote: true,
+    }
+});
+
 const names = [];
-for (const [_, file] of yamlFiles) {
+for (const [path, file] of yamlFiles) {
     const data = await file.async('uint8array');
     const cnt = new TextDecoder().decode(data);
     const parsed: any = parse(cnt);
-    if (!parsed.responsekeys) {
+    if (!parsed.responsekeys && path.includes('commands')) {
         console.log(
             parsed.payload.requesttype + ' has no response skipping...',
         );
         continue;
     }
     const name = parsed.payload.requesttype + '.ts';
+    const input = parsed.responsekeys ?? parsed.payloadkeys;
     const zod =
         `import { z } from "https://deno.land/x/zod/mod.ts";\nexport const ${parsed.payload.requesttype} = ${
-            generateDict(true, parsed.responsekeys)
+            generateDict(true, input)
         };`;
     Deno.writeTextFileSync('generated/zod/' + name, await fmt.format(zod));
 
     const ts = `export type ${parsed.payload.requesttype} = ${
-        generateDict(false, parsed.responsekeys)
+        generateDict(false, input)
     };`;
     Deno.writeTextFileSync('generated/ts/' + name, await fmt.format(ts));
     names.push(parsed.payload.requesttype);

@@ -35,21 +35,38 @@ function checkKey(key: string) {
     return key;
 }
 
-function checkOptional(
-    key: { presence?: string; supportedOS?: object },
-    zod: boolean,
-) {
-    return (key.presence === 'optional' || key.supportedOS
-        ? (zod ? '.optional()' : ' | undefined')
-        : '');
+function checkOptional(key: { presence?: string; supportedOS?: object }, zod: boolean) {
+    return (key.presence === 'optional' || key.supportedOS ? (zod ? '.optional()' : ' | undefined') : '')
+}
+
+function addSupportedOS(key: { supportedOS?: any }) {
+    if (!key.supportedOS) {
+        return '';
+    }
+    let out = "\n\n";
+    for (const [name, data] of Object.entries<any>(key.supportedOS)) {
+        out += `- ${name}: \n`;
+        Object.keys(data).forEach((key) => {
+            if (data[key] !== undefined) {
+                out += `    - ${key}: ${JSON.stringify(data[key]).replaceAll("\"", "")}\n`;
+            }
+        });
+        out += "\n";
+    }
+    return out;
+}
+
+function generateComment(key: { content: string, supportedOS?: object }, description?: string) {
+    return '/** ' + (key.content ?? description ?? '').replaceAll("\n", "\n*") + addSupportedOS(key).replaceAll("\n", "\n*") + ' */\n';
 }
 
 function generateDict(
     zod: boolean,
-    parsed: { key: string; type: string; presence?: string; subkeys?: any }[],
+    parsed: { key: string; type: string; presence?: string; subkeys?: any, content: string, supportedOS?: object }[],
 ) {
     let type = zod ? 'z.object({\n' : '{\n';
     for (const key of parsed) {
+        type += generateComment(key);
         if (key.type === '<dictionary>') {
             type += checkKey(key.key) + ': ' + generateDict(zod, key.subkeys) +
                 checkOptional(key, zod) + ',\n';
@@ -120,14 +137,12 @@ for (const [path, file] of yamlFiles) {
     const name = parsed.payload.requesttype + '.ts';
     const input = parsed.responsekeys ?? parsed.payloadkeys;
     const zod =
-        `import { z } from "https://deno.land/x/zod/mod.ts";\nexport const ${parsed.payload.requesttype} = ${
-            generateDict(true, input)
+        `import { z } from "https://deno.land/x/zod/mod.ts";\n\n${generateComment(parsed.payload, parsed.description)}export const ${parsed.payload.requesttype} = ${generateDict(true, input)
         };`;
     Deno.writeTextFileSync('generated/zod/' + name, await fmt.format(zod));
 
-    const ts = `export type ${parsed.payload.requesttype} = ${
-        generateDict(false, input)
-    };`;
+    const ts = `${generateComment(parsed.payload, parsed.description)}export type ${parsed.payload.requesttype} = ${generateDict(false, input)
+        };`;
     Deno.writeTextFileSync('generated/ts/' + name, await fmt.format(ts));
     names.push(parsed.payload.requesttype);
 }

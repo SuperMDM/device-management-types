@@ -34,7 +34,51 @@ import { z } from 'https://deno.land/x/zod/mod.ts';
  *    - accessrights: AllowAppInstallation
  *    - supervised: false
  */
-export const ManagedApplicationList = z.object({
+export const ManagedApplicationListPayload = z.object({
+    /** The bundle identifiers of the managed apps to include in the response.
+     * For a watchOS app, the identifier needs to be the watch's bundle identifier, which differs from the main bundle identifier for the iPhone to which the watch is paired. Obtain the watch's bundle identifier for an app with a watch bundle, in the 'watchBundleId' key that's part of the Content Metadata query. For more information on this query, see Getting App and Book Information (Legacy).
+     *
+     * - iOS:
+     *    - introduced: 7.0
+     */
+    Identifiers: z.array(z.string()).optional(),
+});
+
+/** This command allows the server to query the status of managed apps. Certain statuses are transient. Once they are reported to the server, the entries for the apps are removed from the next query. macOS supports this command on the user channel starting with macOS 11.3.
+ *
+ * - iOS:
+ *    - introduced: 5.0
+ *    - accessrights: AllowAppInstallation
+ *    - supervised: false
+ *    - requiresdep: false
+ *    - sharedipad: {mode:allowed,devicechannel:true,userchannel:false}
+ *    - userenrollment: {mode:allowed}
+ *
+ * - macOS:
+ *    - introduced: 11.0
+ *    - accessrights: AllowAppInstallation
+ *    - devicechannel: true
+ *    - userchannel: true
+ *    - userenrollment: {mode:allowed}
+ *
+ * - tvOS:
+ *    - introduced: 10.2
+ *    - accessrights: AllowAppInstallation
+ *    - supervised: false
+ *
+ * - visionOS:
+ *    - introduced: 1.1
+ *    - accessrights: AllowAppInstallation
+ *    - supervised: false
+ *    - requiresdep: false
+ *    - userenrollment: {mode:allowed}
+ *
+ * - watchOS:
+ *    - introduced: 10.0
+ *    - accessrights: AllowAppInstallation
+ *    - supervised: false
+ */
+export const ManagedApplicationListResponse = z.object({
     /** A dictionary that contains status information about each managed app. The response will not include apps that are managed by Declarative Device Management. */
     ManagedApplicationList: z.object({
         /** The bundle identifier of the managed app. */

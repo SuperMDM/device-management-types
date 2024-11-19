@@ -30,7 +30,7 @@
  * - watchOS:
  *    - introduced: n/a
  */
-export type OSUpdateStatus = {
+export type OSUpdateStatusResponse = {
     /** An array of dictionaries that describes the statuses of software updates. This command only returns the status for System Applications and Configuration Data updates if a Software Update is actively managed via a Declarative Device Management 'Software Update Enforcement Policy' configuration. */
     OSUpdateStatus: Array<
         {

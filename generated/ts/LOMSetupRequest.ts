@@ -20,7 +20,7 @@
  * - watchOS:
  *    - introduced: n/a
  */
-export type LOMSetupRequest = {
+export type LOMSetupRequestResponse = {
     /** An array that contains the IPv6 addresses for primary LOM-compatible Ethernet interfaces for the device. */
     PrimaryIPv6AddressList: Array<string>;
     /** An array that contains the IPv6 addresses for secondary LOM-compatible Ethernet interfaces for the device. */

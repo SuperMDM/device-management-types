@@ -28,7 +28,7 @@
  *    - introduced: 10.0
  *    - supervised: false
  */
-export type TokenUpdate = {
+export type TokenUpdatePayload = {
     /** If 'true', the device is not on console.
      *
      * - iOS:

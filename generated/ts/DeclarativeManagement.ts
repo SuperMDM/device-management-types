@@ -31,7 +31,7 @@
  *    - supervised: false
  *    - requiresdep: false
  */
-export type DeclarativeManagement = {
+export type DeclarativeManagementPayload = {
     /** The message type, which must have a value of 'DeclarativeManagement'. */
     MessageType: string;
     /** The type of operation the declaration is requesting. This key must be one of these values:

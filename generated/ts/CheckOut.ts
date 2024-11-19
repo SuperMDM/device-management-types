@@ -28,7 +28,7 @@
  *    - introduced: 10.0
  *    - supervised: false
  */
-export type CheckOut = {
+export type CheckOutPayload = {
     /** The message type, which must have a value of 'CheckOut'. */
     MessageType: string;
     /** The topic to which the device subscribed. */

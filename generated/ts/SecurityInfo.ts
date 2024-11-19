@@ -33,7 +33,7 @@
  *    - accessrights: AllowQuerySecurity
  *    - supervised: false
  */
-export type SecurityInfo = {
+export type SecurityInfoResponse = {
     /** A dictionary that contains security-related information. */
     SecurityInfo: {
         /** An integer that indicates the underlying hardware encryption capabilities of the device, which is one of the following values:

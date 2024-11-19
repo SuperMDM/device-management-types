@@ -35,7 +35,7 @@ import { z } from 'https://deno.land/x/zod/mod.ts';
  *    - accessrights: AllowQuerySecurity
  *    - supervised: false
  */
-export const SecurityInfo = z.object({
+export const SecurityInfoResponse = z.object({
     /** A dictionary that contains security-related information. */
     SecurityInfo: z.object({
         /** An integer that indicates the underlying hardware encryption capabilities of the device, which is one of the following values:

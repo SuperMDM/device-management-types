@@ -22,7 +22,7 @@ import { z } from 'https://deno.land/x/zod/mod.ts';
  * - watchOS:
  *    - introduced: n/a
  */
-export const ContentCachingInformation = z.object({
+export const ContentCachingInformationResponse = z.object({
     /** A dictionary that contains the status of content caching on a device. */
     StatusResponse: z.object({
         /** If 'true', the device has enabled content caching. Enabling content caching doesn't guarantee service. See the 'Active' key for the readiness of content caching to serve requests. */

@@ -28,7 +28,43 @@
  *    - accessrights: AllowAppInstallation
  *    - supervised: false
  */
-export type ManagedApplicationAttributes = {
+export type ManagedApplicationAttributesPayload = {
+    /** The bundle identifiers of the managed apps.
+     * For a watchOS app, the identifier needs to be the watch's bundle identifier, which differs from the main bundle identifier for the iPhone to which the watch is paired. Obtain the watch's bundle identifier for an app with a watch bundle, in the 'watchBundleId' key that's part of the Content Metadata query. For more information on this query, see Getting App and Book Information (Legacy). */
+    Identifiers: Array<string>;
+};
+
+/** Queries managed application attributes. Attributes can be set on managed apps. These attributes can be changed over time. The response will not include apps that are managed by Declarative Device Management.
+ *
+ * - iOS:
+ *    - introduced: 7.0
+ *    - accessrights: AllowAppInstallation
+ *    - supervised: false
+ *    - requiresdep: false
+ *    - sharedipad: {mode:allowed,devicechannel:true,userchannel:false}
+ *    - userenrollment: {mode:allowed}
+ *
+ * - macOS:
+ *    - introduced: n/a
+ *
+ * - tvOS:
+ *    - introduced: 10.2
+ *    - accessrights: AllowAppInstallation
+ *    - supervised: false
+ *
+ * - visionOS:
+ *    - introduced: 1.1
+ *    - accessrights: AllowAppInstallation
+ *    - supervised: false
+ *    - requiresdep: false
+ *    - userenrollment: {mode:allowed}
+ *
+ * - watchOS:
+ *    - introduced: 10.0
+ *    - accessrights: AllowAppInstallation
+ *    - supervised: false
+ */
+export type ManagedApplicationAttributesResponse = {
     /** An array of app attributes items. */
     ApplicationAttributes: Array<
         {

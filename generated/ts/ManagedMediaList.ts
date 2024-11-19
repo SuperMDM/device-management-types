@@ -20,7 +20,7 @@
  * - watchOS:
  *    - introduced: n/a
  */
-export type ManagedMediaList = {
+export type ManagedMediaListResponse = {
     /** An array of dictionaries that describes managed books. */
     Books: Array<
         {

@@ -20,7 +20,7 @@
  * - watchOS:
  *    - introduced: n/a
  */
-export type DeviceLocation = {
+export type DeviceLocationResponse = {
     /** The latitude of the device's location. */
     Latitude: number;
     /** The longitude of the device's location. */

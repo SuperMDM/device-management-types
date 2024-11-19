@@ -33,7 +33,57 @@
  *    - accessrights: AllowInspection
  *    - supervised: false
  */
-export type ProfileList = {
+export type ProfileListPayload = {
+    /** If 'true', only include profiles that MDM has installed. For user enrollments, the device ignores this key and always limits the results to managed profiles. This value is available in iOS 13 and later, macOS 10.5 and later, and tvOS 13 and later.
+     *
+     * - iOS:
+     *    - introduced: 13.0
+     *
+     * - macOS:
+     *    - introduced: 10.15
+     *
+     * - tvOS:
+     *    - introduced: 13.0
+     */
+    ManagedOnly: boolean | undefined;
+};
+
+/** This command allows the MDM server to query for the profiles installed on the device. This command requires the Inspect Profile Manifest right. It's supported on the user channel.
+ *
+ * - iOS:
+ *    - introduced: 4.0
+ *    - accessrights: AllowInspection
+ *    - supervised: false
+ *    - requiresdep: false
+ *    - sharedipad: {mode:allowed,devicechannel:true,userchannel:true}
+ *    - userenrollment: {mode:allowed}
+ *
+ * - macOS:
+ *    - introduced: 10.7
+ *    - accessrights: AllowInspection
+ *    - devicechannel: true
+ *    - userchannel: true
+ *    - requiresdep: false
+ *    - userenrollment: {mode:allowed}
+ *
+ * - tvOS:
+ *    - introduced: 9.0
+ *    - accessrights: AllowInspection
+ *    - supervised: false
+ *
+ * - visionOS:
+ *    - introduced: 1.1
+ *    - accessrights: AllowInspection
+ *    - supervised: false
+ *    - requiresdep: false
+ *    - userenrollment: {mode:allowed}
+ *
+ * - watchOS:
+ *    - introduced: 10.0
+ *    - accessrights: AllowInspection
+ *    - supervised: false
+ */
+export type ProfileListResponse = {
     /** An array of dictionaries that describes each installed profile. */
     ProfileList: Array<
         {

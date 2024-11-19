@@ -24,7 +24,7 @@
  * - watchOS:
  *    - introduced: n/a
  */
-export type NSExtensionMappings = {
+export type NSExtensionMappingsResponse = {
     /** An array of dictionaries that contains information about extensions on the device. */
     Extensions: Array<
         {

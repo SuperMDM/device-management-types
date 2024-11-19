@@ -33,7 +33,7 @@ import { z } from 'https://deno.land/x/zod/mod.ts';
  *    - supervised: false
  *    - requiresdep: false
  */
-export const DeclarativeManagement = z.object({
+export const DeclarativeManagementPayload = z.object({
     /** The message type, which must have a value of 'DeclarativeManagement'. */
     MessageType: z.string(),
     /** The type of operation the declaration is requesting. This key must be one of these values:

@@ -26,7 +26,7 @@ import { z } from 'https://deno.land/x/zod/mod.ts';
  * - watchOS:
  *    - introduced: n/a
  */
-export const NSExtensionMappings = z.object({
+export const NSExtensionMappingsResponse = z.object({
     /** An array of dictionaries that contains information about extensions on the device. */
     Extensions: z.array(
         z.object({

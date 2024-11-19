@@ -22,7 +22,7 @@ import { z } from 'https://deno.land/x/zod/mod.ts';
  * - watchOS:
  *    - introduced: n/a
  */
-export const DeviceLocation = z.object({
+export const DeviceLocationResponse = z.object({
     /** The latitude of the device's location. */
     Latitude: z.number(),
     /** The longitude of the device's location. */

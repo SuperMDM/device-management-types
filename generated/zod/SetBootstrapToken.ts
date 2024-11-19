@@ -22,7 +22,7 @@ import { z } from 'https://deno.land/x/zod/mod.ts';
  * - watchOS:
  *    - introduced: n/a
  */
-export const SetBootstrapToken = z.object({
+export const SetBootstrapTokenPayload = z.object({
     /** The message type, which must have a value of 'SetBootstrapToken'. */
     MessageType: z.string(),
     /** The device's bootstrap token data. If this field is missing or zero length, the bootstrap token should be removed for this device. */

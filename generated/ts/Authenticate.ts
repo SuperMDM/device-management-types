@@ -28,7 +28,7 @@
  *    - introduced: 10.0
  *    - supervised: false
  */
-export type Authenticate = {
+export type AuthenticatePayload = {
     /** The device's name.
      *
      * - iOS:

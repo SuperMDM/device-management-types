@@ -30,7 +30,7 @@ import { z } from 'https://deno.land/x/zod/mod.ts';
  *    - introduced: 10.0
  *    - supervised: false
  */
-export const CheckOut = z.object({
+export const CheckOutPayload = z.object({
     /** The message type, which must have a value of 'CheckOut'. */
     MessageType: z.string(),
     /** The topic to which the device subscribed. */

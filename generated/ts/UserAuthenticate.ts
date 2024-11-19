@@ -19,7 +19,7 @@
  * - watchOS:
  *    - introduced: n/a
  */
-export type UserAuthenticate = {
+export type UserAuthenticatePayload = {
     /** The message type, which must have a value of 'UserAuthenticate'. */
     MessageType: string;
     /** The device's UDID (Unique Device ID). */

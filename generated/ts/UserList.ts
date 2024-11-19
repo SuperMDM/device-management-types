@@ -26,7 +26,7 @@
  * - watchOS:
  *    - introduced: n/a
  */
-export type UserList = {
+export type UserListResponse = {
     /** An array of user dictionaries that contains information about the active accounts. */
     Users: Array<
         {

@@ -32,7 +32,7 @@ import { z } from 'https://deno.land/x/zod/mod.ts';
  * - watchOS:
  *    - introduced: n/a
  */
-export const OSUpdateStatus = z.object({
+export const OSUpdateStatusResponse = z.object({
     /** An array of dictionaries that describes the statuses of software updates. This command only returns the status for System Applications and Configuration Data updates if a Software Update is actively managed via a Declarative Device Management 'Software Update Enforcement Policy' configuration. */
     OSUpdateStatus: z.array(
         z.object({

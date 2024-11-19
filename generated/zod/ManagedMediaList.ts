@@ -22,7 +22,7 @@ import { z } from 'https://deno.land/x/zod/mod.ts';
  * - watchOS:
  *    - introduced: n/a
  */
-export const ManagedMediaList = z.object({
+export const ManagedMediaListResponse = z.object({
     /** An array of dictionaries that describes managed books. */
     Books: z.array(
         z.object({

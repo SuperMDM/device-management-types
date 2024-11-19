@@ -30,7 +30,7 @@ import { z } from 'https://deno.land/x/zod/mod.ts';
  *    - introduced: 10.0
  *    - supervised: false
  */
-export const TokenUpdate = z.object({
+export const TokenUpdatePayload = z.object({
     /** If 'true', the device is not on console.
      *
      * - iOS:

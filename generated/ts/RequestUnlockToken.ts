@@ -21,7 +21,7 @@
  * - watchOS:
  *    - introduced: n/a
  */
-export type RequestUnlockToken = {
+export type RequestUnlockTokenResponse = {
     /** The unlock token. Erasing the user partition invalidates this token. */
     UnlockToken: string;
 };

@@ -30,7 +30,7 @@
  * - watchOS:
  *    - introduced: n/a
  */
-export type ActivationLockBypassCode = {
+export type ActivationLockBypassCodeResponse = {
     /** The Activation Lock bypass code if it's available. */
     ActivationLockBypassCode: string;
 };

@@ -23,7 +23,7 @@ import { z } from 'https://deno.land/x/zod/mod.ts';
  * - watchOS:
  *    - introduced: n/a
  */
-export const RequestUnlockToken = z.object({
+export const RequestUnlockTokenResponse = z.object({
     /** The unlock token. Erasing the user partition invalidates this token. */
     UnlockToken: z.string(),
 });

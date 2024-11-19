@@ -30,7 +30,42 @@ import { z } from 'https://deno.land/x/zod/mod.ts';
  *    - accessrights: AllowQueryRestrictions
  *    - supervised: false
  */
-export const Restrictions = z.object({
+export const RestrictionsPayload = z.object({
+    /** If 'true', the device reports restrictions from each profile. This value is available in iOS 4 and later, and tvOS 6.1 and later. */
+    ProfileRestrictions: z.boolean().optional(),
+});
+
+/** This command allows the server to determine what restrictions are being enforced on the device, and the total sum of all restrictions. This command requires the Restrictions Query access right. This technically does work on macOS but it returns a blank dictionary and there no plans to change this behavior.
+ *
+ * - iOS:
+ *    - introduced: 4.0
+ *    - accessrights: AllowQueryRestrictions
+ *    - supervised: false
+ *    - requiresdep: false
+ *    - sharedipad: {mode:allowed,devicechannel:true,userchannel:true}
+ *    - userenrollment: {mode:forbidden}
+ *
+ * - macOS:
+ *    - introduced: n/a
+ *
+ * - tvOS:
+ *    - introduced: 9.0
+ *    - accessrights: AllowQueryRestrictions
+ *    - supervised: false
+ *
+ * - visionOS:
+ *    - introduced: 1.1
+ *    - accessrights: AllowQueryRestrictions
+ *    - supervised: false
+ *    - requiresdep: false
+ *    - userenrollment: {mode:forbidden}
+ *
+ * - watchOS:
+ *    - introduced: 10.0
+ *    - accessrights: AllowQueryRestrictions
+ *    - supervised: false
+ */
+export const RestrictionsResponse = z.object({
     /** A dictionary that contains the global restrictions in effect. This value is available in iOS 4 and later, and tvOS 6.1 and later. */
     GlobalRestrictions: z.object({
         /** A dictionary of Boolean restrictions. */

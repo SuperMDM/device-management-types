@@ -32,7 +32,7 @@ import { z } from 'https://deno.land/x/zod/mod.ts';
  * - watchOS:
  *    - introduced: n/a
  */
-export const ActivationLockBypassCode = z.object({
+export const ActivationLockBypassCodeResponse = z.object({
     /** The Activation Lock bypass code if it's available. */
     ActivationLockBypassCode: z.string(),
 });

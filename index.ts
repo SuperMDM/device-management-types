@@ -135,14 +135,19 @@ for (const [path, file] of yamlFiles) {
         continue;
     }
     const name = parsed.payload.requesttype + '.ts';
-    const input = parsed.responsekeys ?? parsed.payloadkeys;
-    const zod =
-        `import { z } from "https://deno.land/x/zod/mod.ts";\n\n${generateComment(parsed.payload, parsed.description)}export const ${parsed.payload.requesttype} = ${generateDict(true, input)
-        };`;
-    Deno.writeTextFileSync('generated/zod/' + name, await fmt.format(zod));
+    let zod = 'import { z } from "https://deno.land/x/zod/mod.ts";\n\n';
+    let ts = ``;
+    if (parsed.payloadkeys) {
+        zod += `${generateComment(parsed.payload, parsed.description)}export const ${parsed.payload.requesttype}Payload = ${generateDict(true, parsed.payloadkeys)};\n\n`;
+        ts += `${generateComment(parsed.payload, parsed.description)}export type ${parsed.payload.requesttype}Payload = ${generateDict(false, parsed.payloadkeys)};\n\n`;
+    }
 
-    const ts = `${generateComment(parsed.payload, parsed.description)}export type ${parsed.payload.requesttype} = ${generateDict(false, input)
-        };`;
+    if (parsed.responsekeys) {
+        zod += `${generateComment(parsed.payload, parsed.description)}export const ${parsed.payload.requesttype}Response = ${generateDict(true, parsed.responsekeys)};`;
+        ts += `${generateComment(parsed.payload, parsed.description)}export type ${parsed.payload.requesttype}Response = ${generateDict(false, parsed.responsekeys)};`;
+    }
+        
+    Deno.writeTextFileSync('generated/zod/' + name, await fmt.format(zod));
     Deno.writeTextFileSync('generated/ts/' + name, await fmt.format(ts));
     names.push(parsed.payload.requesttype);
 }

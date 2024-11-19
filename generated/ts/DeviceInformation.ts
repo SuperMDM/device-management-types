@@ -33,7 +33,65 @@
  *    - accessrights: Special Case
  *    - supervised: false
  */
-export type DeviceInformation = {
+export type DeviceInformationPayload = {
+    /** An array of query dictionaries to get information about a device. */
+    Queries: Array<string>;
+    /** This specifies a freshness code which appears in the resulting attestation. The value can contain up to 32 bytes of data. If specified, 'Queries' needs to contain 'DevicePropertiesAttestation'.
+     * The MDM server can use this to prove that an attestation was recently generated. The system caches the most recently generated attestation on the device. If omitted or if the value matches the cached attestation, the system returns the cached attestation. To request a new attestation, provide a new freshness code. Requests for new attestations are rate limited. If it has been fewer than 7 days since the system generated an attestation, the device returns the cached attestation rather than generating a new one.
+     * Available in iOS 16 and later, macOS 14 and later, tvOS 16 and later, and watchOS 10 and later. See the DeviceInformation attestation hardware support note for hardware requirements.
+     *
+     * - iOS:
+     *    - introduced: 16.0
+     *    - userenrollment: {mode:allowed}
+     *
+     * - macOS:
+     *    - introduced: 14.0
+     *
+     * - tvOS:
+     *    - introduced: 16.0
+     *
+     * - visionOS:
+     *    - userenrollment: {mode:allowed}
+     */
+    DeviceAttestationNonce: string | undefined;
+};
+
+/** This command allows the server to query for specific device information. It's supported in the user channel.
+ *
+ * - iOS:
+ *    - introduced: 4.0
+ *    - accessrights: Special Case
+ *    - supervised: false
+ *    - requiresdep: false
+ *    - sharedipad: {mode:allowed,devicechannel:true,userchannel:true}
+ *    - userenrollment: {mode:allowed}
+ *
+ * - macOS:
+ *    - introduced: 10.7
+ *    - accessrights: Special Case
+ *    - devicechannel: true
+ *    - userchannel: true
+ *    - requiresdep: false
+ *    - userenrollment: {mode:allowed}
+ *
+ * - tvOS:
+ *    - introduced: 9.0
+ *    - accessrights: Special Case
+ *    - supervised: false
+ *
+ * - visionOS:
+ *    - introduced: 1.1
+ *    - accessrights: Special Case
+ *    - supervised: false
+ *    - requiresdep: false
+ *    - userenrollment: {mode:allowed}
+ *
+ * - watchOS:
+ *    - introduced: 10.0
+ *    - accessrights: Special Case
+ *    - supervised: false
+ */
+export type DeviceInformationResponse = {
     /** A dictionary that contains information about the device. */
     QueryResponses: {
         /** The unique identifier of the device. */

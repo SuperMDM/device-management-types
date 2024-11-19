@@ -20,7 +20,7 @@
  * - watchOS:
  *    - introduced: n/a
  */
-export type ContentCachingInformation = {
+export type ContentCachingInformationResponse = {
     /** A dictionary that contains the status of content caching on a device. */
     StatusResponse: {
         /** If 'true', the device has enabled content caching. Enabling content caching doesn't guarantee service. See the 'Active' key for the readiness of content caching to serve requests. */

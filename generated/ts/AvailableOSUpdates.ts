@@ -29,7 +29,7 @@
  * - watchOS:
  *    - introduced: n/a
  */
-export type AvailableOSUpdates = {
+export type AvailableOSUpdatesResponse = {
     /** An array of dictionaries that contains only the most recent available updates in iOS and tvOS, and possibly multiple available updates in macOS. Follow the instructions in the Managed Apps and Updates section of the Apple Software Lookup Service to find a complete catalog of iOS and tvOS updates.
      * In macOS 14 and later, 'AvailableOSUpdates' doesn't include InstallAssistant-based, full-replacement installers. It only contains over-the-air (OTA) updates. OTA updates can update or upgrade the OS and support all 'InstallAction' options. If a Software Update is actively managed via a Declarative Device Management Specific Enforcement configuration this command is ignored as it pertains to the actively managed update. This command may return information around unmanaged updates such as System Applications and Configuration Data. For actively available updates in conjunction with a declarative configuration, please reference the Apple Software Lookup Service. */
     AvailableOSUpdates: Array<

@@ -33,7 +33,76 @@
  *    - accessrights: AllowQueryApplications
  *    - supervised: false
  */
-export type InstalledApplicationList = {
+export type InstalledApplicationListPayload = {
+    /** An array of app identifiers. Provide this value to limit the response to only include these apps. This value is available in iOS 7 and later, macOS 10.15 and later, and tvOS 10.2 and later. For a watchOS app, the identifier needs to be the watch's bundle identifier, which differs from the main bundle identifier for the iPhone to which the watch is paired. Obtain the watch's bundle identifier for an app with a watch bundle, in the 'watchBundleId' key that's part of the Content Metadata query. For more information on this query, see Getting App and Book Information (Legacy).
+     *
+     * - iOS:
+     *    - introduced: 7.0
+     *
+     * - macOS:
+     *    - introduced: 10.15
+     */
+    Identifiers: Array<string> | undefined;
+    /** If 'true', only get a list of managed apps excluding ones that are managed by Declarative Device Management. This value is available in iOS 7 and later, macOS 10.15 and later, and tvOS 10.2 and later.
+     *
+     * - iOS:
+     *    - introduced: 7.0
+     *
+     * - macOS:
+     *    - introduced: 10.15
+     */
+    ManagedAppsOnly: boolean | undefined;
+    /** An array of strings that represent keys in InstalledApplicationListResponse.InstalledApplicationListItem. If present, the response only contains the keys listed here, except 'Identifier' is always included. If not present, the response contains all keys.
+     * Only request the keys that you need, because some key values can take significant time and power to calculate on the device.
+     *
+     * - iOS:
+     *    - introduced: 14.0
+     *
+     * - macOS:
+     *    - introduced: n/a
+     *
+     * - tvOS:
+     *    - introduced: 14.0
+     */
+    Items: Array<string> | undefined;
+};
+
+/** This command allows the server to query for installed 3rd party applications.
+ *
+ * - iOS:
+ *    - introduced: 5.0
+ *    - accessrights: AllowQueryApplications
+ *    - supervised: false
+ *    - requiresdep: false
+ *    - sharedipad: {mode:allowed,devicechannel:true,userchannel:false}
+ *    - userenrollment: {mode:allowed}
+ *
+ * - macOS:
+ *    - introduced: 10.7
+ *    - accessrights: AllowQueryApplications
+ *    - devicechannel: true
+ *    - userchannel: true
+ *    - requiresdep: false
+ *    - userenrollment: {mode:forbidden}
+ *
+ * - tvOS:
+ *    - introduced: 10.2
+ *    - accessrights: AllowQueryApplications
+ *    - supervised: false
+ *
+ * - visionOS:
+ *    - introduced: 1.1
+ *    - accessrights: AllowQueryApplications
+ *    - supervised: false
+ *    - requiresdep: false
+ *    - userenrollment: {mode:allowed}
+ *
+ * - watchOS:
+ *    - introduced: 10.0
+ *    - accessrights: AllowQueryApplications
+ *    - supervised: false
+ */
+export type InstalledApplicationListResponse = {
     /** An array of dictionaries that describes each installed app. */
     InstalledApplicationList: Array<
         {

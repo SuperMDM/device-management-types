@@ -28,7 +28,7 @@ import { z } from 'https://deno.land/x/zod/mod.ts';
  * - watchOS:
  *    - introduced: n/a
  */
-export const UserList = z.object({
+export const UserListResponse = z.object({
     /** An array of user dictionaries that contains information about the active accounts. */
     Users: z.array(
         z.object({

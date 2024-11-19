@@ -22,7 +22,7 @@ import { z } from 'https://deno.land/x/zod/mod.ts';
  * - watchOS:
  *    - introduced: n/a
  */
-export const LOMSetupRequest = z.object({
+export const LOMSetupRequestResponse = z.object({
     /** An array that contains the IPv6 addresses for primary LOM-compatible Ethernet interfaces for the device. */
     PrimaryIPv6AddressList: z.array(z.string()),
     /** An array that contains the IPv6 addresses for secondary LOM-compatible Ethernet interfaces for the device. */

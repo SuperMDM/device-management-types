@@ -21,7 +21,7 @@ import { z } from 'https://deno.land/x/zod/mod.ts';
  * - watchOS:
  *    - introduced: n/a
  */
-export const UserAuthenticatePayload = z.object({
+export const UserAuthenticateResponse = z.object({
     /** The message type, which must have a value of 'UserAuthenticate'. */
     MessageType: z.string(),
     /** The device's UDID (Unique Device ID). */

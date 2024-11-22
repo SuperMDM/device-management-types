@@ -31,7 +31,7 @@
  *    - supervised: false
  *    - requiresdep: false
  */
-export type DeclarativeManagementPayload = {
+export type DeclarativeManagementResponse = {
     /** The message type, which must have a value of 'DeclarativeManagement'. */
     MessageType: string;
     /** The type of operation the declaration is requesting. This key must be one of these values:
@@ -145,4 +145,41 @@ export type DeclarativeManagementPayload = {
      *    - introduced: n/a
      */
     UserLongName: string | undefined;
+};
+
+/** This command allows the server to turn on the Declarative Management engine on the device (the first time it is used), or to trigger a Declarative Management synchronization operation.
+ *
+ * - iOS:
+ *    - introduced: 15.0
+ *    - supervised: false
+ *    - requiresdep: false
+ *    - sharedipad: {mode:allowed,devicechannel:true,userchannel:true}
+ *    - userenrollment: {mode:allowed}
+ *
+ * - macOS:
+ *    - introduced: 13.0
+ *    - devicechannel: true
+ *    - userchannel: true
+ *    - supervised: false
+ *    - requiresdep: false
+ *    - userenrollment: {mode:allowed}
+ *
+ * - tvOS:
+ *    - introduced: 16.0
+ *    - supervised: false
+ *    - requiresdep: false
+ *
+ * - visionOS:
+ *    - introduced: 1.1
+ *    - supervised: false
+ *    - requiresdep: false
+ *    - userenrollment: {mode:allowed}
+ *
+ * - watchOS:
+ *    - introduced: 10.0
+ *    - supervised: false
+ */
+export type DeclarativeManagementPayload = {
+    /** The base64-encoded Declarative Management JSON request using a TokensResponse. */
+    Data: string | undefined;
 };

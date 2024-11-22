@@ -20,7 +20,7 @@
  * - watchOS:
  *    - introduced: n/a
  */
-export type SetBootstrapTokenPayload = {
+export type SetBootstrapTokenResponse = {
     /** The message type, which must have a value of 'SetBootstrapToken'. */
     MessageType: string;
     /** The device's bootstrap token data. If this field is missing or zero length, the bootstrap token should be removed for this device. */

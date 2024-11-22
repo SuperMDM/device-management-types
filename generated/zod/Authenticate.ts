@@ -30,7 +30,7 @@ import { z } from 'https://deno.land/x/zod/mod.ts';
  *    - introduced: 10.0
  *    - supervised: false
  */
-export const AuthenticatePayload = z.object({
+export const AuthenticateResponse = z.object({
     /** The device's name.
      *
      * - iOS:

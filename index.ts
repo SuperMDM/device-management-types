@@ -2,6 +2,7 @@ import { JSZip } from 'https://deno.land/x/jszip/mod.ts';
 import { parse } from 'jsr:@std/yaml';
 import { assert } from 'https://deno.land/std@0.116.0/_util/assert.ts';
 import { Formatter } from 'https://deno.land/x/deno_fmt@0.1.5/mod.ts';
+import { emptyDirSync } from 'jsr:@std/fs';
 
 // Download yaml types from https://github.com/apple/device-management/tree/release/mdm
 
@@ -99,6 +100,13 @@ function generateArray(zod: boolean, parsed: any) {
     return type;
 }
 try {
+    emptyDirSync('generated/zod/');
+    emptyDirSync('generated/ts/');
+    emptyDirSync('generated/');
+} catch (_) {
+    console.log(_);
+}
+try {
     Deno.mkdirSync('generated', { recursive: true });
 } catch (_e) {
     // ignore
@@ -124,32 +132,36 @@ const fmt = await Formatter.init({
 });
 
 const names = [];
+const out: Record<string, {ts: string[], zod: string[]}> = {};
 for (const [path, file] of yamlFiles) {
     const data = await file.async('uint8array');
     const cnt = new TextDecoder().decode(data);
     const parsed: any = parse(cnt);
-    if (!parsed.responsekeys && path.includes('commands')) {
+    if (!parsed.responsekeys && !parsed.payloadkeys) {
         console.log(
-            parsed.payload.requesttype + ' has no response skipping...',
+            parsed.payload.requesttype + ' has no response and no payload skipping...',
         );
         continue;
     }
     const name = parsed.payload.requesttype + '.ts';
-    let zod = 'import { z } from "https://deno.land/x/zod/mod.ts";\n\n';
-    let ts = ``;
+    out[name] = out[name] || {ts: [], zod: ["import { z } from 'https://deno.land/x/zod/mod.ts';"]};
     if (parsed.payloadkeys) {
-        zod += `${generateComment(parsed.payload, parsed.description)}export const ${parsed.payload.requesttype}Payload = ${generateDict(true, parsed.payloadkeys)};\n\n`;
-        ts += `${generateComment(parsed.payload, parsed.description)}export type ${parsed.payload.requesttype}Payload = ${generateDict(false, parsed.payloadkeys)};\n\n`;
+        const suffix = path.includes('checkin') && !parsed.responsekeys ? 'Response' : 'Payload'; 
+        out[name].zod.push(`${generateComment(parsed.payload, parsed.description)}export const ${parsed.payload.requesttype}${suffix} = ${generateDict(true, parsed.payloadkeys)};`);
+        out[name].ts.push(`${generateComment(parsed.payload, parsed.description)}export type ${parsed.payload.requesttype}${suffix} = ${generateDict(false, parsed.payloadkeys)};`);
     }
 
     if (parsed.responsekeys) {
-        zod += `${generateComment(parsed.payload, parsed.description)}export const ${parsed.payload.requesttype}Response = ${generateDict(true, parsed.responsekeys)};`;
-        ts += `${generateComment(parsed.payload, parsed.description)}export type ${parsed.payload.requesttype}Response = ${generateDict(false, parsed.responsekeys)};`;
+        out[name].zod.push(`${generateComment(parsed.payload, parsed.description)}export const ${parsed.payload.requesttype}Response = ${generateDict(true, parsed.responsekeys)};`);
+        out[name].ts.push(`${generateComment(parsed.payload, parsed.description)}export type ${parsed.payload.requesttype}Response = ${generateDict(false, parsed.responsekeys)};`);
     }
         
-    Deno.writeTextFileSync('generated/zod/' + name, await fmt.format(zod));
-    Deno.writeTextFileSync('generated/ts/' + name, await fmt.format(ts));
     names.push(parsed.payload.requesttype);
+}
+
+for (const [name, data] of Object.entries(out)) {
+    Deno.writeTextFileSync(`generated/ts/${name}`, await fmt.format(data.ts.join('\n\n')));
+    Deno.writeTextFileSync(`generated/zod/${name}`, await fmt.format(data.zod.join('\n\n')));
 }
 
 const mod = names.map((name) => `export type * from "./${name}.ts";`).join(

@@ -33,7 +33,7 @@ import { z } from 'https://deno.land/x/zod/mod.ts';
  *    - supervised: false
  *    - requiresdep: false
  */
-export const DeclarativeManagementPayload = z.object({
+export const DeclarativeManagementResponse = z.object({
     /** The message type, which must have a value of 'DeclarativeManagement'. */
     MessageType: z.string(),
     /** The type of operation the declaration is requesting. This key must be one of these values:
@@ -147,4 +147,41 @@ export const DeclarativeManagementPayload = z.object({
      *    - introduced: n/a
      */
     UserLongName: z.string().optional(),
+});
+
+/** This command allows the server to turn on the Declarative Management engine on the device (the first time it is used), or to trigger a Declarative Management synchronization operation.
+ *
+ * - iOS:
+ *    - introduced: 15.0
+ *    - supervised: false
+ *    - requiresdep: false
+ *    - sharedipad: {mode:allowed,devicechannel:true,userchannel:true}
+ *    - userenrollment: {mode:allowed}
+ *
+ * - macOS:
+ *    - introduced: 13.0
+ *    - devicechannel: true
+ *    - userchannel: true
+ *    - supervised: false
+ *    - requiresdep: false
+ *    - userenrollment: {mode:allowed}
+ *
+ * - tvOS:
+ *    - introduced: 16.0
+ *    - supervised: false
+ *    - requiresdep: false
+ *
+ * - visionOS:
+ *    - introduced: 1.1
+ *    - supervised: false
+ *    - requiresdep: false
+ *    - userenrollment: {mode:allowed}
+ *
+ * - watchOS:
+ *    - introduced: 10.0
+ *    - supervised: false
+ */
+export const DeclarativeManagementPayload = z.object({
+    /** The base64-encoded Declarative Management JSON request using a TokensResponse. */
+    Data: z.string().optional(),
 });

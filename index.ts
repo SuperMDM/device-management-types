@@ -132,26 +132,29 @@ const fmt = await Formatter.init({
 });
 
 const names = [];
-const out: Record<string, {ts: string[], zod: string[]}> = {};
+const out: Record<string, {ts: string[], zod: string[], info: {payload: boolean, response: boolean}}> = {};
 for (const [path, file] of yamlFiles) {
     const data = await file.async('uint8array');
     const cnt = new TextDecoder().decode(data);
     const parsed: any = parse(cnt);
+    const name = parsed.payload.requesttype;
     if (!parsed.responsekeys && !parsed.payloadkeys) {
         console.log(
             parsed.payload.requesttype + ' has no response and no payload skipping...',
         );
+        out[name] = {ts: [], zod: [], info: { payload: false, response: false}}
         continue;
     }
-    const name = parsed.payload.requesttype + '.ts';
-    out[name] = out[name] || {ts: [], zod: ["import { z } from 'https://deno.land/x/zod/mod.ts';"]};
+    out[name] = out[name] || {ts: [], zod: ["import { z } from 'https://deno.land/x/zod/mod.ts';"], info: { payload: false, response: false }};
     if (parsed.payloadkeys) {
         const suffix = path.includes('checkin') && !parsed.responsekeys ? 'Response' : 'Payload'; 
+        suffix === 'Response' ? out[name].info.response = true : out[name].info.payload = true;
         out[name].zod.push(`${generateComment(parsed.payload, parsed.description)}export const ${parsed.payload.requesttype}${suffix} = ${generateDict(true, parsed.payloadkeys)};`);
         out[name].ts.push(`${generateComment(parsed.payload, parsed.description)}export type ${parsed.payload.requesttype}${suffix} = ${generateDict(false, parsed.payloadkeys)};`);
     }
 
     if (parsed.responsekeys) {
+        out[name].info.response = true;
         out[name].zod.push(`${generateComment(parsed.payload, parsed.description)}export const ${parsed.payload.requesttype}Response = ${generateDict(true, parsed.responsekeys)};`);
         out[name].ts.push(`${generateComment(parsed.payload, parsed.description)}export type ${parsed.payload.requesttype}Response = ${generateDict(false, parsed.responsekeys)};`);
     }
@@ -160,8 +163,10 @@ for (const [path, file] of yamlFiles) {
 }
 
 for (const [name, data] of Object.entries(out)) {
-    Deno.writeTextFileSync(`generated/ts/${name}`, await fmt.format(data.ts.join('\n\n')));
-    Deno.writeTextFileSync(`generated/zod/${name}`, await fmt.format(data.zod.join('\n\n')));
+    if (data.info.payload || data.info.response) {
+        Deno.writeTextFileSync(`generated/ts/${name}.ts`, await fmt.format(data.ts.join('\n\n')));
+        Deno.writeTextFileSync(`generated/zod/${name}.ts`, await fmt.format(data.zod.join('\n\n')));
+    }
 }
 
 const mod = names.map((name) => `export type * from "./${name}.ts";`).join(
@@ -172,3 +177,27 @@ Deno.writeTextFileSync(
     'generated/zod/mod.ts',
     await fmt.format(mod.replaceAll('export type', 'export')),
 );
+
+const commandResponse = [];
+commandResponse.push("import { z } from 'https://deno.land/x/zod/mod.ts';");
+commandResponse.push("import {");
+for (const [name, data] of Object.entries(out)) {
+    data.info.payload ? commandResponse.push(`${name}Payload,`) : null;
+    data.info.response ? commandResponse.push(`${name}Response,`) : null;
+}
+commandResponse.push(`} from "./mod.ts";`);
+commandResponse.push("export enum CommandTypes {");
+for (const name of Object.keys(out)) {
+    commandResponse.push(`${name} = '${name}',`);
+}
+commandResponse.push("}");
+commandResponse.push(`export const commandResponse = z.discriminatedUnion('command_type', [`);
+for (const [name, data] of Object.entries(out)) {
+    commandResponse.push("z.object({");
+    commandResponse.push(`command_type: z.literal(CommandTypes.${name}),`);
+    data.info.payload ? commandResponse.push(`payload: ${name}Payload,`) : null;
+    commandResponse.push(data.info.response ? `response: ${name}Response.optional(),` : "response: z.object({}).optional(),");
+    commandResponse.push("}),");
+}
+commandResponse.push("]);")
+Deno.writeTextFileSync('generated/zod/commandResponse.ts', await fmt.format(commandResponse.join('\n')));

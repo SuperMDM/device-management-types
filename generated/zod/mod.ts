@@ -7,7 +7,6 @@ export * from './AvailableOSUpdates.ts';
 export * from './CertificateList.ts';
 export * from './CheckOut.ts';
 export * from './ClearPasscode.ts';
-export * from './commandTypes.ts';
 export * from './ContentCachingInformation.ts';
 export * from './DeclarativeManagement.ts';
 export * from './DeclarativeManagement.ts';
@@ -62,3 +61,5 @@ export * from './UserList.ts';
 export * from './ValidateApplications.ts';
 export * from './VerifyFirmwarePassword.ts';
 export * from './VerifyRecoveryLock.ts';
+
+export * from './commandTypes.ts';

@@ -7,6 +7,7 @@ export * from './AvailableOSUpdates.ts';
 export * from './CertificateList.ts';
 export * from './CheckOut.ts';
 export * from './ClearPasscode.ts';
+export * from './commandTypes.ts';
 export * from './ContentCachingInformation.ts';
 export * from './DeclarativeManagement.ts';
 export * from './DeclarativeManagement.ts';

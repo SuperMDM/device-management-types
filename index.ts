@@ -175,7 +175,7 @@ const mod = names.map((name) => `export type * from "./${name}.ts";`).join(
 Deno.writeTextFileSync('generated/ts/mod.ts', await fmt.format(mod));
 Deno.writeTextFileSync(
     'generated/zod/mod.ts',
-    await fmt.format(mod.replaceAll('export type', 'export')),
+    await fmt.format(mod.replaceAll('export type', 'export') + "export * from './commandTypes.ts';"),
 );
 
 const commandResponse = [];
@@ -200,4 +200,4 @@ for (const [name, data] of Object.entries(out)) {
     commandResponse.push("}),");
 }
 commandResponse.push("]);")
-Deno.writeTextFileSync('generated/zod/commandResponse.ts', await fmt.format(commandResponse.join('\n')));
+Deno.writeTextFileSync('generated/zod/commandTypes.ts', await fmt.format(commandResponse.join('\n')));
